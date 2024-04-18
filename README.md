@@ -31,7 +31,8 @@ This code is modified from the original code: https://github.com/edwin/spring-3-
 
 - Extract RHBK 
 - Copy the my-theme folder (in our repository) to themes folder under RHBK parent folder
-- Run RHBK using the following command 
+- Run RHBK using the following command (we will use start-dev to start it in the Dev mode, while start only will start it for production use where you need hostname and tls configurations)
+  
   ```
   ./kc.sh start-dev --hostname=mysso --http-port=8080
   ```
@@ -91,5 +92,95 @@ When you try access the admin page using the user1:
 
 <img width="548" alt="Screenshot 2024-04-18 at 6 12 24 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/cbbf46f5-c44c-40fe-9a88-7ed916eaac86">
 
-  
-  
+## Metrics & Health Information
+
+As we enabled the metrics and health information using the command line parameter: --metrics-enabled=true --health-enabled=true
+You can access the metics using the url: http://mysso:8080/metrics, Prometheus text format which can be integrated with OpenShift Metrics or Cryostat.
+
+<img width="842" alt="Screenshot 2024-04-18 at 6 20 37 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/0eef37d6-60b3-4d30-97a9-823d2dda2f98">
+
+You can access the health information using the url: http://mysso:8080/health (or http://mysso:8080/health/live or http://mysso:8080/health/ready)
+
+<img width="541" alt="Screenshot 2024-04-18 at 6 21 18 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/15d458cf-08a8-411c-bae8-8399bff4f47c">
+
+## Configurations
+As this release is built using Quarkus and built for both rraditional deployment or container based deployment, the configurations can have many options:
+1- Using the command line (as we did)
+2- Using Environment variables (just prefix the parameters with KC_parameter-name so it doesn't overlap with any other environment variables
+3- Using config file.
+To know the available configurations, check:
+```
+./kc.sh show-config
+```
+
+## Database Configurations
+Note that as we didn't specify any DB, the RHBK will use h2, but you can easily configure any supported DB by parameters, but to get the best options use the "build" phase to optomize the configurations then run the start command afterwards.
+
+```
+   ./kc.sh start \
+        --db postgres \
+        --db-url-host my-postgres-db \
+        --db-username db-user \
+        --db-password db-password
+```
+
+## Using REST APIs with RHBK
+
+You can perform any action using the Keycloak REST APIs, for example:
+```
+curl \
+  -d "client_id=admin-cli" \
+  -d "username=admin" \
+  -d "password=admin" \
+  -d "grant_type=password" \
+  "http://mysso:8080/realms/master/protocol/openid-connect/token"
+
+//this will output access token:
+{"access_token":"eyJhb… }
+
+//then take the ourput token to call the subsequent calls
+
+curl -H “Authorization: bearer eyJhb…” \ 
+"http://mysso:8080/admin/realms/master"
+```
+
+## Theme Customization
+You can do a full customization for the theme used in different pages:
+Account - Account management
+Admin - Admin Console
+Email - Emails
+Login - Login forms
+Welcome - Welcome page
+
+Keycloak uses Apache Freemarker templates to generate HTML and render pages. All you need is to create a folder with your theme name and either put your created files or extend one of the existing themes and customize it.
+For example for the Account page, we just modified the icon, so we created a folder called my-theme/account and added a file called theme.properties:
+```
+parent=keycloak.v2
+import=common/keycloak
+logo=/img/my-logo.png
+```
+So we extended the parent theme and just changed the logo, in the my-theme/account/resources/img we placed the logo icon "my-logo.png"
+
+For the login page, we changed the background image using the css, so in the theme.properties:
+```
+parent=keycloak
+import=common/keycloak
+styles=web_modules/@patternfly/react-core/dist/styles/base.css web_modules/@patternfly/react-core/dist/styles/app.css node_modules/patternfly/dist/css/patternfly.min.css node_modules/patternfly/dist/css/patternfly-additions.min.css css/login.css css/mycss.css
+```
+So we kept everything but added one additional mycss.css file that has the following content:
+```
+.login-pf body {
+    background: url("../img/my-logo.png") repeat center center fixed;
+    background-size: repeat;
+    height: 60%;
+    margin: 0;
+}
+```
+And we also placed the image in the my-theme/login/resources/img folder.
+
+<img width="1087" alt="Screenshot 2024-04-18 at 6 52 20 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/d8756211-e0c7-4541-93a0-25993e890c99">
+
+
+
+
+

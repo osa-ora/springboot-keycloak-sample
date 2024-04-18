@@ -180,7 +180,9 @@ And we also placed the image in the my-theme/login/resources/img folder.
 
 <img width="1087" alt="Screenshot 2024-04-18 at 6 52 20 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/d8756211-e0c7-4541-93a0-25993e890c99">
 
+## OpenShift Deployment
+You can deploy RHBK to OCP using the operator, it will simplify the required configurations and HA setup, you need to prepare the DB configurations, hostname and tls configurations for a production use instance.
 
-
+<img width="594" alt="Screenshot 2024-04-18 at 6 54 06 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/431d9336-7191-414d-9324-e32fdcead8a1">
 
 

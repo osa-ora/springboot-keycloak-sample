@@ -1,0 +1,6 @@
+.login-pf body {
+    background: url("../img/my-logo.png") repeat center center fixed;
+    background-size: repeat;
+    height: 60%;
+    margin: 0;
+}

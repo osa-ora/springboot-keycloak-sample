@@ -34,6 +34,7 @@ This code is modified from the original code: https://github.com/edwin/spring-3-
 - Run RHBK using the following command (we will use start-dev to start it in the Dev mode, while start only will start it for production use where you need hostname and tls configurations)
   
   ```
+  //switch to the bin folder
   ./kc.sh start-dev --hostname=mysso --http-port=8080
   ```
 - Set up an admin user and password and check the admin console is working fine.
@@ -52,9 +53,17 @@ This code is modified from the original code: https://github.com/edwin/spring-3-
 - Create 2 users (Admin and User) in the "external" realm and set up their password, then assign the following roles to them:
   - Admin with role: BIG_USER
   - User1 with role: NORMAL_USER
-    
+
 <img width="1719" alt="Screenshot 2024-04-18 at 5 12 26 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/ac6e94f8-fd11-4387-9f7f-e265f22871aa">
 <img width="1714" alt="Screenshot 2024-04-18 at 5 13 00 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/908985f8-3bd1-486a-b58b-09078dc68abf">
+
+Note: these roles are external-client roles, so you need to select "Filter by Client"
+<img width="571" alt="Screenshot 2024-04-19 at 11 30 47 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/977e331a-24ff-4117-8204-6421acf88b45">
+
+Navigate to Clients --> External-Client --> Client Scope and select "external-client-dedicated" 
+Check existing mapping "client roles", you can see we have included the roles in the token in "resource_access" element, so the client app can validate it.
+<img width="493" alt="Screenshot 2024-04-19 at 11 35 46 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/7cbb6e97-99b6-4c31-a420-f582842c8010">
+
 
 - Create client secret token for our external-client (client that will be used for our SpringBoot application)
 

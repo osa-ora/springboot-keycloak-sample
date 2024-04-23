@@ -121,6 +121,15 @@ To know the available configurations, check:
 ```
 ./kc.sh show-config
 ```
+We can use the environment variable in our example, so we will set environment variable for the hostname, make sure the KC command picked it using show-config, then remove the hostname from the command line parameters:
+
+```
+export KC_HOSTNAME=mysso
+echo $KC_HOSTNAME
+./kc.sh show-config
+./kc.sh --spi-login-protocol-openid-connect-legacy-logout-redirect-uri=true start-dev --metrics-enabled=true --http-port=8080 --health-enabled=true 
+```
+Now if you override the command with another hostname such as localhost, the mysso hostname will not be configured as the order of priority is command line > environment variables > config files.
 
 ## Database Configurations
 Note that as we didn't specify any DB, the RHBK will use h2, but you can easily configure any supported DB by parameters, but to get the best options use the "build" phase to optomize the configurations then run the start command afterwards.

@@ -1,10 +1,10 @@
 # Spring Boot 3 and Red Hat Build of Keycloak
 
 ## Purpose
-A sample java SpringBoot code to demonstrate a Spring Boot 3 integration with Keycloak 22. It utilize Keycloak login page, and fetch a user's attribute based on Keycloak user profile. 
-This code is modified from the original code: https://github.com/edwin/spring-3-keycloak
+A sample java SpringBoot code to demonstrate a Spring Boot 3 integration with Red Hat Build of Keycloak version 24.0.4 and it utilizes Keycloak login page, and fetch a user's attribute based on Keycloak user profile. 
+This code is modified version from this repo: https://github.com/edwin/spring-3-keycloak
 
-## Version
+## Demo Configurations:
 - Spring Boot 3.0.4
 - Keycloak 24.0.4
 - OpenJDK 17+
@@ -30,7 +30,7 @@ This code is modified from the original code: https://github.com/edwin/spring-3-
   <img width="677" alt="Screenshot 2024-04-18 at 5 22 43 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/e8c5a52c-c6bb-4b60-bb08-044e81af7fd0">
 
 - Extract RHBK 
-- Copy the my-theme folder (in our repository) to themes folder under RHBK parent folder
+- Copy the my-theme folder (in this Git repository) to themes folder under RHBK parent folder
 - Run RHBK using the following command (we will use start-dev to start it in the Dev mode, while start only will start it for production use where you need hostname and tls configurations)
   
   ```

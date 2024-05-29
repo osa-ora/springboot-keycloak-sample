@@ -6,8 +6,8 @@ This code is modified from the original code: https://github.com/edwin/spring-3-
 
 ## Version
 - Spring Boot 3.0.4
-- Keycloak 22
-- Red Hat OpenJDK 17
+- Keycloak 24.0.4
+- OpenJDK 17+
 - Maven
 
 ## Installation Steps:
@@ -39,16 +39,25 @@ This code is modified from the original code: https://github.com/edwin/spring-3-
   ```
 - Set up an admin user and password and check the admin console is working fine.
 
-  <img width="1599" alt="Screenshot 2024-04-18 at 5 21 34 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/a6b43eff-6d72-4366-aeb1-b03c7d72bc99">
+<img width="631" alt="Screenshot 2024-05-29 at 5 53 38 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/91ae4f73-bd23-4e7b-8558-58cc0113e4f7">
+
+<img width="790" alt="Screenshot 2024-05-29 at 5 55 32 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/2b02cf17-01be-4672-a748-af0a2b0f650d">
+
 
 - Stop the application (Ctl+C) and run the import statement for the realm as following:
   ```
-  curl https://raw.githubusercontent.com/osa-ora/springboot-keycloak-sample/main/realm/realm-export.json > realm-export.json
+  curl https://raw.githubusercontent.com/osa-ora/springboot-keycloak-sample/main/realm/realm-export.json > ~/Downloads/realm-export.json
   ./kc.sh import --file ~/Downloads/realm-export.json
   ./kc.sh --spi-login-protocol-openid-connect-legacy-logout-redirect-uri=true start-dev --metrics-enabled=true --hostname=mysso --http-port=8080 --health-enabled=true
   ```
-- Switch to "External" realm
-<img width="461" alt="Screenshot 2024-04-18 at 5 34 24 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/31e0aaeb-8278-4cf2-a513-eaf95afb66b6">
+- Switch to Ramadan SSO or "External" realm
+
+<img width="257" alt="Screenshot 2024-05-29 at 5 57 43 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/e5d31f0a-b875-42a3-a1ac-edbb9e313627">
+
+
+- You can navigate to the realm setting to see how easily you can customize the login, registration and other pages.
+
+<img width="509" alt="Screenshot 2024-05-29 at 5 40 08 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/172eb6e6-78db-423d-ac43-0fd9892627ca">
 
 - Create 2 users (Admin and User) in the "external" realm and set up their password, then assign the following roles to them:
   - Admin with role: BIG_USER
@@ -62,6 +71,7 @@ Note: these roles are external-client roles, so you need to select "Filter by Cl
 
 Navigate to Clients --> External-Client --> Client Scope and select "external-client-dedicated" 
 Check existing mapping "client roles", you can see we have included the roles in the token in "resource_access" element, so the client app can validate it.
+
 <img width="493" alt="Screenshot 2024-04-19 at 11 35 46 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/7cbb6e97-99b6-4c31-a420-f582842c8010">
 
 
@@ -89,7 +99,9 @@ The Login page theme when you accesss  http://localhost:8081/ or http://localhos
 
 <img width="1688" alt="Screenshot 2024-04-18 at 5 30 43 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/5cc404bf-e2a4-408e-9572-62df6df41503">
 
-When login successfully, you will get redirected to the application home page:
+As you can see all the options that we enabled for this realm is autmoatically displayed like: registration, forget password, remember me, etc..
+
+When login successfully with admin user, you will get redirected to the application home page:
 
 <img width="632" alt="Screenshot 2024-04-18 at 6 10 55 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/54e2d005-1e8a-4a53-8904-f40fad187e2d">
 
@@ -97,9 +109,20 @@ You can also click on the account details link to see and manage your account de
 
 <img width="1716" alt="Screenshot 2024-04-18 at 5 32 19 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/fa4719c1-7900-4222-afe0-b09dcae8800f">
 
-When you try access the admin page using the user1:
+To configure DFA, go to Signing-in and select "Setup Authenticator Application"
+
+<img width="1476" alt="Screenshot 2024-05-29 at 5 29 44 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/11eeb09e-6dee-4d1c-b0a4-c2f5649df668">
+
+Then configure your mobile authnticator Application (scan the QR code and enter the generated pin, that's it!)
+
+<img width="478" alt="Screenshot 2024-05-29 at 5 30 40 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/3babc3b4-dff7-4bf4-814a-3792b997cf69">
+
+You can try to logout and login again and see how it will request the token now as a second authentication factor.
+
+Also you can try to logout and login with the user1, then click on admin page link, you'll see user1 doesn't have the required privilages to access this page:
 
 <img width="548" alt="Screenshot 2024-04-18 at 6 12 24 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/cbbf46f5-c44c-40fe-9a88-7ed916eaac86">
+
 
 ## Metrics & Health Information
 

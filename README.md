@@ -16,10 +16,10 @@ This code is modified from the original code: https://github.com/edwin/spring-3-
   java --version
   openjdk 17.0.10 2024-01-16
   ```
-- Download Red Hat build of KeyCloak server (this app is tested against version 22)
+- Download Red Hat build of KeyCloak server (this app is tested against version 24.0.4)
   https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=rhbk&downloadType=distributions
 
-  <img width="949" alt="Screenshot 2024-04-18 at 5 25 43 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/4c1d0927-8a64-4017-937d-7114a063f038">
+  <img width="950" alt="Screenshot 2024-05-29 at 6 08 38 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/cacd407a-2a87-48a6-98ee-f6e03c0c6095">
 
   You'll neeed redhat.com user to be able to donwload it.
 - Add entry to your hosts file mapping mysso to 127.0.0.1 so we can use a dedicated url for the SSO

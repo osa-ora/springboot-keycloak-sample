@@ -6,7 +6,7 @@ This code is modified version from this repo: https://github.com/edwin/spring-3-
 
 ## Demo Configurations:
 - Spring Boot 3.0.4
-- Keycloak 24.0.4
+- Keycloak 26.0.9
 - OpenJDK 17+
 - Maven
 
@@ -16,10 +16,10 @@ This code is modified version from this repo: https://github.com/edwin/spring-3-
   java --version
   openjdk 17.0.10 2024-01-16
   ```
-- Download Red Hat build of KeyCloak server (this app is tested against version 24.0.4)
+- Download Red Hat build of KeyCloak server (this app is tested against version 26.0.9)
   https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=rhbk&downloadType=distributions
 
-  <img width="950" alt="Screenshot 2024-05-29 at 6 08 38 AM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/cacd407a-2a87-48a6-98ee-f6e03c0c6095">
+  <img width="963" alt="Screenshot 2025-01-30 at 12 36 38 PM" src="https://github.com/user-attachments/assets/81215da7-1838-42f1-850b-84f65c8f3a93" />
 
   You'll neeed redhat.com user to be able to donwload it.
 - Add entry to your hosts file mapping mysso to 127.0.0.1 so we can use a dedicated url for the SSO
@@ -127,11 +127,11 @@ Also you can try to logout and login with the user1, then click on admin page li
 ## Metrics & Health Information
 
 As we enabled the metrics and health information using the command line parameter: --metrics-enabled=true --health-enabled=true
-You can access the metics using the url: http://mysso:8080/metrics, Prometheus text format which can be integrated with OpenShift Metrics or Cryostat.
+You can access the metics using the url: http://mysso:9000/metrics, Prometheus (OpenMetrics) text format which can be integrated with OpenShift Metrics or Cryostat (end point can be customized, check: https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html/server_configuration_guide/management-interface-#management-interface-)
 
 <img width="842" alt="Screenshot 2024-04-18 at 6 20 37 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/0eef37d6-60b3-4d30-97a9-823d2dda2f98">
 
-You can access the health information using the url: http://mysso:8080/health (or http://mysso:8080/health/live or http://mysso:8080/health/ready)
+You can access the health information using the url: http://mysso:9000/health (or http://mysso:9000/health/live or http://mysso:9000/health/ready)
 
 <img width="541" alt="Screenshot 2024-04-18 at 6 21 18 PM" src="https://github.com/osa-ora/springboot-keycloak-sample/assets/18471537/15d458cf-08a8-411c-bae8-8399bff4f47c">
 

@@ -176,6 +176,17 @@ curl \
   -d "grant_type=password" \
   "http://mysso:8080/realms/master/protocol/openid-connect/token"
 
+// Note: if client authentication is needed add -d "client_secret"="...the seccret token..."
+// so for our previous setup
+curl \
+  -d "client_id=external-client" \
+  -d "username=user1" \
+  -d "password=user1" \
+  -d "grant_type=password" \
+  -d "client_secret=...." \
+  "http://mysso:8080/realms/external/protocol/openid-connect/token"
+
+
 //this will output access token:
 {"access_token":"eyJhb… }
 

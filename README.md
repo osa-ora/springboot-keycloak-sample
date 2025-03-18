@@ -1,7 +1,7 @@
 # Spring Boot 3 and Red Hat Build of Keycloak
 
 ## Purpose
-A sample java SpringBoot code to demonstrate a Spring Boot 3 integration with Red Hat Build of Keycloak version 24.0.4 and it utilizes Keycloak login page, and fetch a user's attribute based on Keycloak user profile. 
+A sample java SpringBoot code to demonstrate a Spring Boot 3 integration with Red Hat Build of Keycloak version 26.0.9 and it utilizes Keycloak login page, and fetch a user's attribute based on Keycloak user profile. 
 This code is modified version from this repo: https://github.com/edwin/spring-3-keycloak
 
 ## Demo Configurations:
